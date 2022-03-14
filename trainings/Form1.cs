@@ -22,18 +22,34 @@ namespace trainings
 
         private void button2_Click(object sender, EventArgs e)
         {
+            // CheckForIllegalCrossThreadCalls = false; // делает возможность между потоками творить что угодно
+
             Thread thread = new Thread(
-                delegate () { 
-                
+                delegate () {
 
+                    //Invoke
+                    //MT(label1);
 
+                    /*
+                     //запуск делегата с помощью Action
+                    */
+                    Action action = () => {
+                        label1.Text = "Смета по Action";
+                    };
+                    if (InvokeRequired)
+                    {
+                        Invoke(action);
+                    }
+                    else {
+                        action();
+                    }
                 });
             thread.Start();
 
-            label1.Text = "dslfkjs";
+            
         }
-        void MT() { 
-        
+        void MT(Label label) {
+            label.Text="fgklasjdgo";
         }
     }
 }
